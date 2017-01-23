@@ -11,6 +11,7 @@ struct queue
 	int front,rear,size;
 	struct node* *array;
 };
+struct node* arr[100];
 struct node * newnode(int data)
 {
 	struct node *temp = (struct node *)malloc(sizeof(struct node));
@@ -100,12 +101,16 @@ void insert(struct node **root,int data,struct queue *q)
 	}
 	if(hasbothchild(front))
 		{
-			dequeue(front); 
+			dequeue(q); 
 		}
 	enqueue(q,temp);
 	//currentnode = temp;
 	}
+	return q;
+
+
 }
+
 generate(struct queue *q)
 {
 	struct node * currentnode;
@@ -130,6 +135,40 @@ generate(struct queue *q)
 	}
 
 }
+//implementing priority queue
+void leafnode(struct queue *lq,struct node *fr)
+{
+	if(fr == NUll)
+		return;
+	else if(fr->left==NULL && fr->right ==NULL)
+		enqueue(lq,fr);
+	else
+	{
+		leafnode(lq,fr->right);
+		leafnode(lq,fr->left);
+
+	}
+
+}
+int extract(struct queue *lq,struct node *fr)
+{
+	if(!isEmpty(lq))
+	{
+	int max=fr->data;
+	struct node *temp = dequeue(lq);
+	fr>data=temp->data;
+	temp->parent=NULL;
+	}
+	else
+	{
+		leafnode(lq,fr);
+		int max=fr->data;
+	    struct node *temp = dequeue(lq);
+		fr>data=temp->data;
+		temp->parent=NULL;
+
+	}
+}
 void main()
 {
 	struct node *root=NULL;
@@ -142,6 +181,15 @@ void main()
 	}
 	printf("root data is %d",root->data);
 	generate(q);
+	struct queue *leafqueue  = CreateQueue();
+	//inserting leaf node in queue
+	leafnode(leafqueue,finalroot);
+
+
+	int max = extract(leafqueue,finalroot);
+	generate(lq); 
+	printf("max element is : %d",max);
+	
 
 }
 
