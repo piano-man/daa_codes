@@ -6,6 +6,7 @@ struct node
 	struct node *left, *right,*parent;
 };
 //struct node * currentnode;
+struct node * finalroot;
 struct queue
 {
 	int front,rear,size;
@@ -106,7 +107,7 @@ void insert(struct node **root,int data,struct queue *q)
 	enqueue(q,temp);
 	//currentnode = temp;
 	}
-	return q;
+	
 
 
 }
@@ -114,7 +115,7 @@ void insert(struct node **root,int data,struct queue *q)
 generate(struct queue *q)
 {
 	struct node * currentnode;
-	struct node * finalroot;
+	
 	while(!isEmpty(q))
 	{
 		int temp;
@@ -138,7 +139,7 @@ generate(struct queue *q)
 //implementing priority queue
 void leafnode(struct queue *lq,struct node *fr)
 {
-	if(fr == NUll)
+	if(fr == NULL)
 		return;
 	else if(fr->left==NULL && fr->right ==NULL)
 		enqueue(lq,fr);
@@ -156,7 +157,7 @@ int extract(struct queue *lq,struct node *fr)
 	{
 	int max=fr->data;
 	struct node *temp = dequeue(lq);
-	fr>data=temp->data;
+	fr->data=temp->data;
 	temp->parent=NULL;
 	}
 	else
@@ -164,7 +165,7 @@ int extract(struct queue *lq,struct node *fr)
 		leafnode(lq,fr);
 		int max=fr->data;
 	    struct node *temp = dequeue(lq);
-		fr>data=temp->data;
+		fr->data=temp->data;
 		temp->parent=NULL;
 
 	}
@@ -187,9 +188,9 @@ void main()
 
 
 	int max = extract(leafqueue,finalroot);
-	generate(lq); 
+	generate(leafqueue); 
 	printf("max element is : %d",max);
-	
+
 
 }
 
