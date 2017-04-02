@@ -103,22 +103,8 @@ int main() {
 	int i, j;
 	for(i = 0; i < n; i++) {
 		adj[i] = (int *)(calloc(n, sizeof(int)));
-	}
-	int *parent1, *parent2;
-	int a, b, c;
-	parent1 = (int *)(calloc(n, sizeof(int)));
-	parent2 = (int *)(calloc(n, sizeof(int)));
-	while(1) {
-		scanf("%d %d %d", &a, &b, &c);
-		if(a == -1) {
-			break;
-		}
-		adj[a][b] = c;
-		adj[b][a] = c;
-	}
-	int src, des;
-	scanf("%d %d", &src, &des);
-	int sol1 = shortest_path(n, adj, parent1, src, des);
+
+
 	printf("Shortest Path Length - %d\n", sol1);
 	print_path(parent1, src, des);
 	printf("\n");
