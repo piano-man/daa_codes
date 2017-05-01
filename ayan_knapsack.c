@@ -227,6 +227,8 @@ int calc_constraint(int W, int n, int *c, int *w, int k) {
 		v.cnt = u.cnt + 1;
 		if(v.wt <= W && v.profit > mxP && v.cnt <= k) {
 			mxP = v.profit;
+            //c[v.level] for cost
+            //w[v.level] for weight
 		}
 		v.bound = calc_bound(n, c, w, v, W, k);
 		if(v.bound > mxP) {
