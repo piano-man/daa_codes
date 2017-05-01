@@ -1,6 +1,7 @@
 // A Dynamic Programming solution for Rod cutting problem
 #include<stdio.h>
 #include<limits.h>
+int s[100];
  
 // A utility function to get the maximum of two integers
 int max(int a, int b) { return (a > b)? a : b;}
@@ -19,19 +20,35 @@ int cutRod(int price[], int n)
    {
        int max_val = INT_MIN;
        for (j = 0; j < i; j++)
-         max_val = max(max_val, price[j] + val[i-j-1]);
+       {
+           if(max_val<price[j]+val[i-j-1])
+           {
+               max_val = price[j]+val[i-j-1];
+               s[i]=j;
+           }
+       }
+         //max_val = max(max_val, price[j] + val[i-j-1]);
        val[i] = max_val;
    }
  
    return val[n];
 }
- 
+printrod(int n)
+{
+    while(n>0)
+    {
+        printf("%d",s[n]);
+        n = n-s[n];
+
+
+    }
+} 
 /* Driver program to test above functions */
 int main()
 {
     int arr[] = {1, 5, 8, 9, 10, 17, 17, 20};
     int size = sizeof(arr)/sizeof(arr[0]);
     printf("Maximum Obtainable Value is %d\n", cutRod(arr, size));
-    getchar();
+    printrod(size);
     return 0;
 }

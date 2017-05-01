@@ -35,7 +35,7 @@ void maximize(int st, int en, int ****dp, int id, int af[], int bef[], int sign[
 	maximize(val[0] + 1, en, dp, val[3], af, bef, sign);
 	sign[val[0]] = val[1];
 }
-void get_expr(float *expr, int n, int ****dp2, char *s) {
+void get_expr(float *expr, int n, int ****dp2, char *s, int p) {
 	int af[n];
 	int bef[n];
 	int sign[n];
@@ -45,7 +45,7 @@ void get_expr(float *expr, int n, int ****dp2, char *s) {
 		bef[i] = 0;
 		sign[i] = -1;
 	}
-	maximize(0, n - 1, dp2, 0, af, bef, sign);
+	maximize(0, n - 1, dp2, p, af, bef, sign);
 	/*for(i = 0; i < n; i++) {
 		printf("%d ", af[i]);
 	}
@@ -354,7 +354,11 @@ void solve(float *expr, int n, char *par_expr)
 			}
 		}
 	}
-	get_expr(expr, n, dp2, par_expr);
+	int in = 0;
+	if(dp[2][0][n - 1] > dp[0][0][n - 1]) {
+		in = 2;
+	}
+	get_expr(expr, n, dp2, par_expr, in);
 	/*for(k = 0; k < 4; k++) {
 		for(i = 0; i < n; i++) {
 			for(j = 0; j < n; j++) {
@@ -368,7 +372,7 @@ void solve(float *expr, int n, char *par_expr)
 		printf("%f ", dp[i][0][n - 1]);
 	}
 	printf("\n");*/
-	printf("maximum value ->\t%f\n", dp[0][0][n - 1]);
+	printf("maximum value ->\t%f\n", dp[in][0][n - 1]);
 	printf("%s\n", par_expr);
   /* solve the puzzle and use printf to print the parenthesized expression and result to screen */
 }

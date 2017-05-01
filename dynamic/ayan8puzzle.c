@@ -38,6 +38,7 @@ int dequeue(int qu[], int *front, int *rear) {
 	}
 	return val;
 }
+//generating permutation
 void insert(int id, int arr[][2], int a[], int par[], int val, int *cnt) {
 	if(id == 9) {
 		arr[*cnt][0] = val;
